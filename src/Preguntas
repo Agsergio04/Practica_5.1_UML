@@ -1,0 +1,88 @@
+1.Interpreta el significado del diagrama de clases.
+
+a) Relación entre las clases. Significado, tipo, multiplicidad.
+
+Las relacion existente que tienen la clase es de agregacion (Curso respecto de Estudiante),lo cual significa
+que puede existir estudiante sin la necesidad de que este asignado a un curso o exista el curso.
+
+b) Elementos de las clases. Tipos y propósito.
+
+De Estudiante tenemos que:
+
+    -Atributos:
+        -nombre-String
+        -dni-String.
+    -Método:
+        -inscribirse(curso: Curso) inscribe al estudiante en un curso.
+
+De Curso tenemos que:
+    -Atributos:
+        -nombre String.
+        -codigo String.
+        -estudiantes Lista mutable de Estudiantes.
+    -Métodos:
+        -agregarAlumno() añade un estudiante.
+        -mostrarEstudiantes() imprime los nombres.
+
+c)Significado del método agregarAlumno(). Funcionamiento.
+
+Significa que mete a un objeto de la clase Estudiante en una lista mediante el uso del metodo que poseen
+las litas de mutables el cual es .add
+
+d) Significado del método inscribirse()
+
+Metodo de estudiantes por el cual llaman a la funcion agregarAlumno() para realizar el mismo cometido
+
+2. Generación de código a partir del diagrama.
+
+a) Crear clases
+
+Clase Curso:
+
+class Curso (
+    var nombre : String,
+    val codigo : String,
+    var estudiantes : MutableList<Estudiante> = mutableListOf<Estudiante>()
+){
+
+    fun agregarAlumno(estudiante : Estudiante){
+        estudiantes.add(estudiante)
+    }
+
+    fun mostrarEstudiantes(){
+        for (estudiante in estudiantes){
+            println(estudiante.nombre)
+        }
+    }
+}
+
+Clase Estudiante:
+
+class Estudiante(
+    val nombre : String,
+    val dni : String){
+
+    fun inscribirse(curso : Curso){
+        curso.agregarAlumno(Estudiante(this.nombre,this.dni))
+    }
+
+}
+
+b) Crear relaciones
+
+La relacion existene es en la clase Curso la existencia de una lista de objetos de la clase Estudiante
+
+c) Crear main (para probar el sistema).
+
+fun main() {
+    val cursoKotlin = Curso("Programación", "KOT101",)
+    val estudiante1 = Estudiante("Paula Tocino", "12345678A")
+    val estudiante2 = Estudiante("Coral Ruíz", "87654321B")
+    val estudiante3 = Estudiante("Agarrido Rey", "87654321B")
+
+    estudiante1.inscribirse(cursoKotlin)
+    estudiante2.inscribirse(cursoKotlin)
+    estudiante3.inscribirse(cursoKotlin)
+
+    cursoKotlin.mostrarEstudiantes()
+}
