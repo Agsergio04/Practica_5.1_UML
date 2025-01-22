@@ -3,7 +3,7 @@ class Estudiante(
     val dni : String){
 
     fun inscribirse(curso : Curso){
-        curso.agregarAlumno(Estudiante(this.nombre,this.dni))
+        curso.agregarAlumno(this))
     }
 
 }
